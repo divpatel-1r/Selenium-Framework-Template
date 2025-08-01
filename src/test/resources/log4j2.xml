@@ -12,12 +12,15 @@
         </File>
     </Appenders>
 
+    <!-- Root Logger -->
     <Loggers>
         <Root level="debug">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="FileLogger"/>
         </Root>
     </Loggers>
+
+    <!-- Custom Logger for com.example package -->
     <RollingFile name="RollingFile" fileName="logs/app.log"
                  filePattern="logs/app-%d{yyyy-MM-dd}.log">
         <PatternLayout pattern="%d %p %c [%t] %m%n"/>

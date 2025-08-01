@@ -9,10 +9,14 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class LoginValidate extends Base {
-
+/*
+    LoginValidate is a test class that extends the Base class to validate login functionality.
+    It uses TestNG for testing and ExcelUtils for data-driven testing.
+    The class contains methods to test both valid and invalid login scenarios using data from an Excel file.
+ */
     Login login;
 
-    @Test(priority = 1,dataProvider = "TestData")
+    @Test(priority = 1,dataProvider = "TestData")// Valid testcase for Login
     public void ValidLogin(String Username, String Password) {       // Valid Test Case for Login
         login = new Login(driver);
         login.LoginFunc(Username, Password);// This is Sample Data
@@ -24,7 +28,7 @@ public class LoginValidate extends Base {
 //        public void InvalidLogin(){     // Invalid testcase for Login
 //            log.LoginFunc("InvalidUser","InvalidPass");     // This is Sample Data
 //    }
-    @Test(priority = 2,dataProvider = "InvalidTestData")
+    @Test(priority = 2,dataProvider = "InvalidTestData")// Invalid testcase for Login
     public void InvalidLogin(String Username, String Password) {
         login = new Login(driver);// Validate testcase for Login
         login.LoginFunc(Username, Password);     // This is Sample Data

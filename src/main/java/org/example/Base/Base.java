@@ -1,71 +1,45 @@
 package org.example.Base;
-
+import org.example.Base.BrowserConfig.Initialization;
+import org.example.Base.BrowserConfig.Termination;
 import org.example.Utility.Property;
 import org.example.Utility.TestListner;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-
-import java.time.Duration;
-
+// Base.java
 public class Base {
 
     protected WebDriver driver;
     protected Property property;
+    Initialization initialization;
+    /*
+    Initialize the browser and properties before any test methods are run
+     */
     @BeforeClass
-    public void initial(){
-        property = new Property();
-        property.LoadProperty();
-        String browser = property.getProperty("browser");
-
-       // ChromeOptions options = new ChromeOptions();
-      //  options.addArguments("--incognito");
-
-        switch (browser != null ? browser.toLowerCase() : "chrome")
-        {
-            case "chrome":
-                ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.addArguments("--incognito"); // keep your original options
-                chromeOptions.addArguments("--start-maximized");
-                driver = new ChromeDriver(chromeOptions);
-                break;
-
-            case "firefox":
-                driver = new FirefoxDriver();
-                driver.manage().window().maximize();
-                break;
-
-            case "edge":
-                driver = new EdgeDriver();
-                driver.manage().window().maximize();
-                break;
-
-            default:
-                throw new RuntimeException("Unsupported browser: " + browser);
-
-        }
-
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        TestListner.driver = driver;
-
-
+    public void setUp() {
+        Initialization.initial();// Initialize the browser and properties
+        this.driver = Initialization.driver;// Get the driver from Initialization
+        this.property = Initialization.property;// Get the property from Initialization
+        TestListner.driver = driver; // Set the driver in TestListener
     }
+
+    /*
+        Navigate to Base URL
+     */
     @BeforeMethod
     public void navigateToBaseURL() // rename the Method name BeforeMethod-->navigateToBaseURL
     {
-        driver.get(property.getProperty("Base_URL"));
+        driver.get(property.getProperty("Base_URL"));// Navigate to the base URL defined in properties
     }
 
+    /*
+    Terminate the driver after all tests are done
+     */
     @AfterClass
-    public void terminate(){
-        if(driver != null){
-            driver.quit();
-        }
+    public void terminate()// rename the Method name AfterClass-->terminate
+    {
+        Termination.term();// Terminate the WebDriver session
     }
 
 

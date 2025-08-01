@@ -6,6 +6,12 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class Login {
+
+    /*
+    * Login Page Object Model (POM) class for handling login functionality.
+    * This class contains WebElements for username, password, and login button,
+    * along with methods to perform login actions and retrieve error messages.
+     */
     WebDriver driver;
 
     @FindBy(id = "username")                            // This is Sample Data
@@ -19,23 +25,23 @@ public class Login {
 
     //Asserts
 
-    @FindBy(id = "flash")
-    private WebElement loginError;
+    @FindBy(id = "flash")// This is Sample Data
+    private WebElement loginError;// Element to capture login error messages
 
 
-    public Login(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+    public Login(WebDriver driver) {// Constructor to initialize the WebDriver and PageFactory
+        this.driver = driver;// Set the WebDriver instance
+        PageFactory.initElements(driver, this);// Initialize the WebElements using PageFactory
     }
 
-    public void LoginFunc(String name, String pass) {
-        username.sendKeys(name);
-        password.sendKeys(pass);
-        Login.click();
+    public void LoginFunc(String name, String pass) {// Method to perform login action
+        username.sendKeys(name);// Enter the username
+        password.sendKeys(pass);// Enter the password
+        Login.click();// Click the login button
     }
 
 
-    public String getLoginErrorMessage() {
-        return loginError.getText();
+    public String getLoginErrorMessage() {// Method to retrieve the login error message
+        return loginError.getText();// Get the text of the login error message element
     }
 }

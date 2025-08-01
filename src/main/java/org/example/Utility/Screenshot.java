@@ -11,7 +11,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Screenshot {
-
+/*
+    * Screenshot is a utility class for capturing screenshots in Selenium WebDriver.
+    * It provides a method to take a screenshot and save it with a timestamp in the filename.
+    * The screenshots are saved in the "screenshots" directory under the current working directory.
+ */
     public static String SS(WebDriver driver, String SS_name){
         String dateName = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
         TakesScreenshot ts = (TakesScreenshot) driver;
