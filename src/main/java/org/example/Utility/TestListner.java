@@ -11,6 +11,8 @@ import org.testng.ITestListener;
 import org.testng.ITestResult;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class TestListner implements ITestListener {
 /*
@@ -21,13 +23,15 @@ public class TestListner implements ITestListener {
     ExtentSparkReporter htmlReporter;
     ExtentReports extent;
     ExtentTest test;
-    String SSpath = "screenshots/testName.png";
+//    String SSpath = "screenshots/testName.png";
 
     public static WebDriver driver;
 
     @Override
     public void onStart(ITestContext context) {
-        htmlReporter = new ExtentSparkReporter(System.getProperty("user.dir") + "/test-output/ExtentReport.html");// Specify the path for the HTML report
+        String dateName = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());// Create a timestamp for the screenshot filename
+        String dateFolder = new SimpleDateFormat("yyyyMMdd").format(new Date());// Create a folder with the current date
+        htmlReporter = new ExtentSparkReporter(System.getProperty("user.dir") + "/test-outcome/"+dateFolder+"/Report"+dateName+".html");// Specify the path for the HTML report
 
         htmlReporter.config().setDocumentTitle("Automation Report");// Set the title of the report
         htmlReporter.config().setReportName("Functional Test Report");// Set the name of the report
@@ -61,7 +65,8 @@ public class TestListner implements ITestListener {
         test.log(Status.PASS, "Test Passed: " + result.getMethod().getMethodName());// Log the success of the test
         String screenshotPath = Screenshot.SS(driver, result.getMethod().getMethodName());// Capture a screenshot for the passed test
         // Convert to relative path from the project root (HTML report is in test-output/)
-        String relativePath = "../screenshots/" + new File(screenshotPath).getName();// Get the relative path of the screenshot
+//        String relativePath = "../screenshots/" + new File(screenshotPath).getName();// Get the relative path of the screenshot
+        String relativePath = new File(screenshotPath).getName();// Get the relative path of the screenshot
 
         try {
             test.addScreenCaptureFromPath(relativePath);// Add the screenshot to the report
@@ -76,7 +81,8 @@ public class TestListner implements ITestListener {
         test.log(Status.FAIL, result.getThrowable());// Log the exception that caused the failure
         String screenshotPath = Screenshot.SS(driver, result.getMethod().getMethodName());// Capture a screenshot for the failed test
         // Convert to relative path from the project root (HTML report is in test-output/)
-        String relativePath = "../screenshots/" + new File(screenshotPath).getName();// Get the relative path of the screenshot
+//        String relativePath = "../screenshots/" + new File(screenshotPath).getName();// Get the relative path of the screenshot
+        String relativePath = new File(screenshotPath).getName();// Get the relative path of the screenshot
 
         try {
             test.addScreenCaptureFromPath(relativePath);// Add the screenshot to the report
