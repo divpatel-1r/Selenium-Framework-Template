@@ -17,8 +17,8 @@ public class Screenshot {
     * The screenshots are saved in the "screenshots" directory under the current working directory.
  */
     public static String SS(WebDriver driver, String SS_name){
-        String dateName = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());// Create a timestamp for the screenshot filename
-        String dateFolder = new SimpleDateFormat("yyyyMMdd").format(new Date());// Create a folder with the current date
+        String dateName = new SimpleDateFormat("yyyy-MM-dd_hh-mm-ss").format(new Date());// Create a timestamp for the screenshot filename
+        String dateFolder = new SimpleDateFormat("yyyy-MM-dd").format(new Date());// Create a folder with the current date
         TakesScreenshot ts = (TakesScreenshot) driver;
         File source = ts.getScreenshotAs(OutputType.FILE);
         String destination = System.getProperty("user.dir") + "/Test-OutCome/"+dateFolder+"/screenshots/" + SS_name + "_" + dateName + ".png";

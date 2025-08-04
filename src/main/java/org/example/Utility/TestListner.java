@@ -29,9 +29,9 @@ public class TestListner implements ITestListener {
 
     @Override
     public void onStart(ITestContext context) {
-        String dateName = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());// Create a timestamp for the screenshot filename
-        String dateFolder = new SimpleDateFormat("yyyyMMdd").format(new Date());// Create a folder with the current date
-        htmlReporter = new ExtentSparkReporter(System.getProperty("user.dir") + "/test-outcome/"+dateFolder+"/Report"+dateName+".html");// Specify the path for the HTML report
+        String dateName = new SimpleDateFormat("yyyy-MM-dd_hh-mm-ss").format(new Date());// Create a timestamp for the screenshot filename
+        String dateFolder = new SimpleDateFormat("yyyy-MM-dd").format(new Date());// Create a folder with the current date
+        htmlReporter = new ExtentSparkReporter(System.getProperty("user.dir") + "/test-outcome/"+dateFolder+"/Report/"+dateName+".html");// Specify the path for the HTML report
 
         htmlReporter.config().setDocumentTitle("Automation Report");// Set the title of the report
         htmlReporter.config().setReportName("Functional Test Report");// Set the name of the report
