@@ -1,32 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="WARN">
+<!--
+    This file is part of the CSS_Deconstruction project.
+    It is used to configure Log4j2 logging for the application.
+    The configuration includes console and rolling file appenders.
+-->
+<Configuration status="WARN"> <!-- Set the logging status to WARN to reduce verbosity -->
     <Appenders>
-        <!-- Console Appender -->
+        <!-- Console appender for logging to the system console -->
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
 
-        <!-- File Appender -->
-        <File name="FileLogger" fileName="logs/test-log.log" append="true">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
-        </File>
+        <!-- Rolling file appender for logging to a file with daily rotation -->
+        <RollingFile name="RollingFile"
+                     fileName="test-outcome/current/Logs/app.log"
+                     filePattern="test-outcome/%d{yyyy-MM-dd}/Logs/app-%d{HH-mm-ss}.log">
+
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/> <!-- Layout for the log messages -->
+            <!-- Time-based triggering policy to roll over the log file every day -->
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+
+            <!-- Default rollover strategy to keep a minimum of 1 file index -->
+            <DefaultRolloverStrategy fileIndex="min"/>
+        </RollingFile>
     </Appenders>
 
-    <!-- Root Logger -->
+    <!-- Loggers configuration -->
     <Loggers>
-        <Root level="debug">
-            <AppenderRef ref="Console"/>
-            <AppenderRef ref="FileLogger"/>
+        <Root level="debug"> <!-- Set the root logger level to debug -->
+            <AppenderRef ref="Console"/> <!-- Reference to the console appender -->
+            <AppenderRef ref="RollingFile"/> <!-- Reference to the rolling file appender -->
         </Root>
     </Loggers>
-
-    <!-- Custom Logger for com.example package -->
-    <RollingFile name="RollingFile" fileName="logs/app.log"
-                 filePattern="logs/app-%d{yyyy-MM-dd}.log">
-        <PatternLayout pattern="%d %p %c [%t] %m%n"/>
-        <Policies>
-            <TimeBasedTriggeringPolicy/>
-        </Policies>
-    </RollingFile>
-
 </Configuration>
