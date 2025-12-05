@@ -41,6 +41,4 @@ public class Base {
     {
         Termination.term();// Terminate the WebDriver session
     }
-
-
 }
